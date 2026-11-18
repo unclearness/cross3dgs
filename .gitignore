@@ -1,0 +1,27 @@
+build/
+build-ios/
+build-ios-sfm/
+build-linux/
+build-macos/
+cache/
+cache
+data/
+data
+out/
+out
+.venv/
+__pycache__/
+*.pyc
+
+# VkSplat checkout used by scripts/benchmark_vksplat.py.
+external/vksplat/
+
+
+# Signing material and per-user IDE state.
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+xcuserdata/
+*.xcuserstate
+.DS_Store

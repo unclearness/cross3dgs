@@ -1,0 +1,128 @@
+/* Based on the Nerfies project page stylesheet (CC BY-SA 4.0). */
+body {
+  font-family: 'Noto Sans', sans-serif;
+  background: #ffffff;
+}
+
+.footer .icon-link {
+  font-size: 25px;
+  color: #000;
+}
+
+.link-block a {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+/* Wrapped section headings split into even lines instead of leaving one word behind. */
+.title {
+  text-wrap: balance;
+}
+
+.publication-title {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-subtitle {
+  font-family: 'Google Sans', sans-serif;
+  line-height: 1.35;
+}
+
+.publication-authors {
+  font-family: 'Google Sans', sans-serif;
+}
+
+.publication-authors a {
+  color: hsl(204, 86%, 53%) !important;
+}
+
+.publication-authors a:hover {
+  text-decoration: underline;
+}
+
+.author-block {
+  display: inline-block;
+  margin: 0 0.25em;
+}
+
+.publication-venue {
+  margin-top: 0.75rem;
+}
+
+.publication-links {
+  margin-top: 1rem;
+}
+
+/* Placeholder links (TODO) stay visible but read as not yet available. */
+.button.is-todo {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.teaser .hero-body {
+  padding-top: 0;
+  padding-bottom: 3rem;
+}
+
+.teaser-image {
+  width: 100%;
+  height: auto;
+}
+
+.teaser .subtitle {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.publication-video {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+}
+
+.publication-video video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  margin-top: 0.75rem;
+  color: #4a4a4a;
+}
+
+.section-heading {
+  margin-top: 2.5rem;
+}
+
+.section-lead {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.paper-figure {
+  margin: 1.5rem 0 2.5rem;
+  text-align: center;
+}
+
+.paper-figure img {
+  width: 100%;
+  height: auto;
+}
+
+.paper-figure.narrow img {
+  max-width: 640px;
+}
+
+.paper-figure figcaption {
+  margin-top: 0.75rem;
+  text-align: left;
+  color: #4a4a4a;
+  font-size: 0.95rem;
+}
+
+#BibTeX pre {
+  white-space: pre-wrap;
+}

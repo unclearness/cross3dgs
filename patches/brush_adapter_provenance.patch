@@ -1,0 +1,24 @@
+diff --git a/crates/brush-process/src/lib.rs b/crates/brush-process/src/lib.rs
+--- a/crates/brush-process/src/lib.rs
++++ b/crates/brush-process/src/lib.rs
+@@ -33,6 +33,18 @@
+ pub async fn burn_init_setup() -> WgpuDevice {
+-    burn_wgpu::init_setup_async::<AutoGraphicsApi>(&WgpuDevice::DefaultDevice, burn_options())
+-        .await;
++    let setup =
++        burn_wgpu::init_setup_async::<AutoGraphicsApi>(&WgpuDevice::DefaultDevice, burn_options())
++            .await;
++    let info = setup.adapter.get_info();
++    eprintln!(
++        "BRUSH_ADAPTER_INFO|name={}|vendor=0x{:04x}|device=0x{:04x}|device_type={:?}|backend={:?}|driver={}|driver_info={}",
++        info.name,
++        info.vendor,
++        info.device,
++        info.device_type,
++        info.backend,
++        info.driver,
++        info.driver_info
++    );
+     connect_device(WgpuDevice::DefaultDevice);
+     WgpuDevice::DefaultDevice
+ }

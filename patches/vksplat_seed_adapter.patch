@@ -1,0 +1,37 @@
+diff --git a/vksplat/src/gs_trainer.h b/vksplat/src/gs_trainer.h
+index c651f72..f9bfd13 100644
+--- a/vksplat/src/gs_trainer.h
++++ b/vksplat/src/gs_trainer.h
+@@ -113,6 +113,10 @@ public:
+     void initialize(const std::map<std::string, std::string> &spirv_paths, int device_id);
+     void cleanup();
+ 
++    // Preserve the upstream default (42) unless an experiment explicitly
++    // requests another deterministic seed before loading the dataset.
++    void set_seed(uint32_t seed) { rng.seed(seed); }
++
+     void load_colmap_dataset(const TrainerConfig &config, VulkanGSPipelineBuffers& buffers);
+ 
+     size_t num_train() const { return dataset_train.size(); }
+diff --git a/vksplat/src/python_bindings.cpp b/vksplat/src/python_bindings.cpp
+index b5e94c5..14a89a8 100644
+--- a/vksplat/src/python_bindings.cpp
++++ b/vksplat/src/python_bindings.cpp
+@@ -146,6 +146,8 @@ public:
+         PerfTimer::reset();
+     }
+ 
++    void set_seed(uint32_t seed) { trainer.set_seed(seed); }
++
+     py::dict set_train_config(py::dict train_config) {
+ 
+         config.output_dir = train_config["output_dir"].cast<std::string>();
+@@ -605,6 +607,8 @@ PYBIND11_MODULE(vksplat, m) {
+     py::class_<VkSplat>(m, "VkSplat")
+         .def(py::init<>())
+         .def("initialize", &VkSplat::initialize, "Initialize the trainer with SPIRV code")
++        .def("set_seed", &VkSplat::set_seed,
++             "Set the deterministic trainer RNG seed before dataset loading")
+         .def("set_train_config", &VkSplat::set_train_config, "Set training configuration")
+         .def_property_readonly("num_train", &VkSplat::num_train)
+         .def_property_readonly("num_val", &VkSplat::num_val)

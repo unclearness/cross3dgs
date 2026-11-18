@@ -1,0 +1,7 @@
+[submodule "external/VulkanWrapper"]
+	path = external/VulkanWrapper
+	url = https://github.com/unclearness/VulkanWrapper.git
+[submodule "external/colmap"]
+	path = external/colmap
+	url = https://github.com/unclearness/colmap.git
+	branch = android-port

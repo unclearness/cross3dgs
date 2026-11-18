@@ -1,0 +1,82 @@
+{
+  "name": "standard_quality",
+  "description": "Standard-quality 3DGS training: 30k updates, SH degree 3, MCMC refinement up to one million Gaussians, L1 + 0.2 (1 - SSIM). The same settings drive the desktop CLI (scripts/run_desktop.py), the Android app (scripts/benchmark_android.py), and the iOS app (scripts/benchmark_ios.py).",
+  "dataset_root": "data/360_v2",
+  "scene": "bicycle",
+  "image_dir": "images_4",
+  "sparse_dir": "sparse/0",
+  "eval_interval": 8,
+  "iterations": 30000,
+  "sh_degree": 3,
+  "ssim_weight": 0.2,
+  "density_strategy": "mcmc",
+  "gaussian_capacity": 1000000,
+  "desktop": {
+    "arguments": [
+      "--dataset-root", "{dataset_root}",
+      "--scene", "{scene}",
+      "--image-dir", "{image_dir}",
+      "--sparse-dir", "sparse/0",
+      "--train-iterations", "{iterations}",
+      "--sh-degree", "3",
+      "--ssim-weight", "0.2",
+      "--density-strategy", "mcmc",
+      "--gaussian-capacity", "1000000",
+      "--warmup", "20",
+      "--init-seed", "{seed}",
+      "--view-order", "random",
+      "--adam-moments", "fp32",
+      "--full-image-ssim",
+      "--mcmc-clone-offset", "0.5",
+      "--mcmc-gradient-sampling", "1.5",
+      "--benchmark-json", "{output}/bench.json",
+      "--step-times-csv", "{output}/step_times_ms.csv",
+      "--candidate-ledger-json", "{output}/candidate_ledger.json",
+      "--evaluation-image-dir", "{output}",
+      "--output-ply", "{output}/model.ply"
+    ]
+  },
+  "android_launch": {
+    "package": "org.unclearness.cross3dgs",
+    "extras": {
+      "iterations": 30000,
+      "auto_start": true,
+      "progress_every": 100,
+      "sh_degree": 3,
+      "density_strategy": "mcmc",
+      "gaussian_capacity": 1000000,
+      "ssim_weight": 0.2,
+      "view_order": "random",
+      "adam_moments": "fp32",
+      "full_image_ssim": true,
+      "mcmc_clone_offset": 0.5,
+      "mcmc_gradient_sampling": 1.5
+    }
+  },
+  "ios_launch": {
+    "bundle_id": "org.unclearness.cross3dgs",
+    "arguments": [
+      "--dataset-root", "@BUNDLE@/data/360_v2",
+      "--scene", "bicycle",
+      "--image-dir", "images_4",
+      "--sparse-dir", "sparse/0",
+      "--train-iterations", "30000",
+      "--sh-degree", "3",
+      "--ssim-weight", "0.2",
+      "--density-strategy", "mcmc",
+      "--gaussian-capacity", "1000000",
+      "--warmup", "20",
+      "--init-seed", "42",
+      "--view-order", "random",
+      "--adam-moments", "fp32",
+      "--full-image-ssim",
+      "--mcmc-clone-offset", "0.5",
+      "--mcmc-gradient-sampling", "1.5",
+      "--benchmark-json", "@DOCUMENTS@/out/bicycle/bench.json",
+      "--step-times-csv", "@DOCUMENTS@/out/bicycle/step_times_ms.csv",
+      "--evaluation-image-dir", "@DOCUMENTS@/out/bicycle",
+      "--candidate-ledger-json", "@DOCUMENTS@/out/bicycle/candidate_ledger.json",
+      "--output-ply", "@DOCUMENTS@/out/bicycle/splat.ply"
+    ]
+  }
+}

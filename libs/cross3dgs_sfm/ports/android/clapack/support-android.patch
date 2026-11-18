@@ -1,0 +1,29 @@
+diff --git a/F2CLIBS/libf2c/sysdep1.h b/F2CLIBS/libf2c/sysdep1.h
+index 1111111..2222222 100644
+--- a/F2CLIBS/libf2c/sysdep1.h
++++ b/F2CLIBS/libf2c/sysdep1.h
+@@ -10,7 +10,11 @@
+
+ #ifdef __linux__
+ #define USE_LARGEFILE
++#ifdef __ANDROID__
++#define OFF_T off64_t
++#else
+ #define OFF_T __off64_t
++#endif
+ #endif
+
+ #ifdef _AIX43
+diff --git a/F2CLIBS/libf2c/uninit.c b/F2CLIBS/libf2c/uninit.c
+index 3333333..4444444 100644
+--- a/F2CLIBS/libf2c/uninit.c
++++ b/F2CLIBS/libf2c/uninit.c
+@@ -231,7 +231,7 @@
+ 	}
+ #endif /* mips */
+
+-#ifdef __linux__
++#if defined(__linux__) && !defined(__ANDROID__)
+ #define IEEE0_done
+ #include "fpu_control.h"
+

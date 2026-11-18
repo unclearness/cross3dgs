@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Existing 3DGS trainers vs. Cross3DGS, as a software/hardware stack.
+  Hand-editable: one <g> per row, plain text (no logos), colors in <style>.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 730" width="1600" height="730"
+     font-family="'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif">
+  <style>
+    .bg       { fill: #ffffff; }
+    .head     { font-size: 30px; font-weight: 700; fill: #1f2328; }
+    .label    { font-size: 20px; font-weight: 600; fill: #3c4043; }
+    .t        { font-size: 20px; fill: #1f2328; }
+    .tb       { font-size: 22px; font-weight: 700; fill: #1f2328; }
+    .vendor   { font-size: 19px; font-weight: 700; }
+    .vendor.qc { font-size: 17px; }
+    .big      { font-size: 30px; font-weight: 700; fill: #1f2328; }
+    .small    { font-size: 16px; fill: #5f6368; }
+    .note     { font-size: 22px; fill: #3c4043; }
+    .bad      { font-size: 26px; font-weight: 700; fill: #c62828; }
+    .good     { font-size: 26px; font-weight: 700; fill: #2e7d32; }
+    .trainer  { fill: #fce4ec; stroke: #e5487f; stroke-width: 2; }
+    .sched    { fill: #ede7f6; stroke: #8e5cc9; stroke-width: 2; }
+    .fixed    { fill: #f5f5f5; stroke: #9aa0a6; stroke-width: 2; stroke-dasharray: 7 5; }
+    .api      { fill: #fff3e0; stroke: #e0a526; stroke-width: 2; }
+    .gpu      { fill: #e3f2fd; stroke: #3b8fd9; stroke-width: 2; }
+    .os       { fill: #f1f3f5; stroke: #9aa0a6; stroke-width: 2; }
+    .lab      { fill: #f1f3f5; }
+    .divider  { stroke: #dadce0; stroke-width: 2; }
+    .arrow    { stroke: #8e5cc9; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+    /* GPU colors */
+    .nv    { fill: #4f8000; } .amd { fill: #ed1c24; } .intel { fill: #0083b0; }
+    .arm   { fill: #c76a00; } .qc  { fill: #3253dc; } .apple { fill: #963d97; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8e5cc9"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="730"/>
+
+  <!-- Column headings -->
+  <text class="head" x="370" y="48" text-anchor="middle">Existing 3DGS trainers</text>
+  <text class="head" x="1230" y="48" text-anchor="middle">Cross3DGS</text>
+
+  <!-- Row labels (middle column) -->
+  <g id="row-labels" text-anchor="middle">
+    <rect class="lab" x="720" y="88"  width="160" height="64" rx="6"/>
+    <text class="label" x="800" y="127">Trainer</text>
+    <rect class="lab" x="720" y="172" width="160" height="64" rx="6"/>
+    <text class="label" x="800" y="200">Execution</text>
+    <text class="label" x="800" y="224">schedule</text>
+    <rect class="lab" x="720" y="256" width="160" height="64" rx="6"/>
+    <text class="label" x="800" y="295">Backend API</text>
+    <rect class="lab" x="720" y="340" width="160" height="84" rx="6"/>
+    <text class="label" x="800" y="389">GPU</text>
+    <rect class="lab" x="720" y="444" width="160" height="64" rx="6"/>
+    <text class="label" x="800" y="483">OS</text>
+  </g>
+
+  <!-- ===================== Existing (left) ===================== -->
+  <g id="existing">
+    <!-- Trainer: one implementation per backend -->
+    <rect class="trainer" x="40"  y="88" width="210" height="64"/>
+    <text class="tb" x="145" y="127" text-anchor="middle">3DGS / gsplat</text>
+    <rect class="trainer" x="265" y="88" width="210" height="64"/>
+    <text class="tb" x="370" y="127" text-anchor="middle">VkSplat</text>
+    <rect class="trainer" x="490" y="88" width="210" height="64"/>
+    <text class="tb" x="595" y="127" text-anchor="middle">Brush</text>
+
+    <!-- Schedule: fixed by each implementation -->
+    <!-- Checked against the pinned sources: VkSplat e26c254 gs_renderer.cpp
+         initRasterizationBackwardScheduler (device-limit and shared-memory screen, then timing); Brush 3b80985 render_bwd.rs. -->
+    <rect class="fixed" x="40"  y="172" width="210" height="64"/>
+    <text class="t" x="145" y="211" text-anchor="middle">fixed CUDA kernels</text>
+    <rect class="fixed" x="265" y="172" width="210" height="64"/>
+    <text class="t" x="370" y="200" text-anchor="middle">backward kernel list</text>
+    <text class="small" x="370" y="224" text-anchor="middle">screened, then timed</text>
+    <rect class="fixed" x="490" y="172" width="210" height="64"/>
+    <text class="t" x="595" y="200" text-anchor="middle">one backward kernel</text>
+    <text class="small" x="595" y="224" text-anchor="middle">native or CAS atomics</text>
+
+    <!-- Backend API -->
+    <rect class="api" x="40"  y="256" width="210" height="64"/>
+    <text class="tb" x="145" y="295" text-anchor="middle">CUDA</text>
+    <rect class="api" x="265" y="256" width="210" height="64"/>
+    <text class="tb" x="370" y="295" text-anchor="middle">Vulkan</text>
+    <rect class="api" x="490" y="256" width="210" height="64"/>
+    <text class="tb" x="595" y="295" text-anchor="middle">WebGPU</text>
+
+    <!-- GPU coverage -->
+    <rect class="gpu" x="40"  y="340" width="210" height="84"/>
+    <text class="tb nv" x="145" y="377" text-anchor="middle">NVIDIA</text>
+    <text class="small" x="145" y="403" text-anchor="middle">CUDA-capable GPUs</text>
+    <rect class="gpu" x="265" y="340" width="210" height="84"/>
+    <text class="tb" x="370" y="377" text-anchor="middle">any vendor</text>
+    <text class="small" x="370" y="403" text-anchor="middle">≥32-lane subgroups</text>
+    <rect class="gpu" x="490" y="340" width="210" height="84"/>
+    <text class="tb" x="595" y="377" text-anchor="middle">any vendor</text>
+    <text class="small" x="595" y="403" text-anchor="middle">fails late past a device limit</text>
+
+    <!-- OS -->
+    <rect class="os" x="40"  y="444" width="210" height="64"/>
+    <text class="t" x="145" y="483" text-anchor="middle">Windows · Linux</text>
+    <rect class="os" x="265" y="444" width="210" height="64"/>
+    <text class="t" x="370" y="473" text-anchor="middle">no Android / iOS host</text>
+    <text class="small" x="370" y="496" text-anchor="middle">Windows · Linux · macOS</text>
+    <rect class="os" x="490" y="444" width="210" height="64"/>
+    <text class="t" x="595" y="473" text-anchor="middle">no iOS build</text>
+    <text class="small" x="595" y="496" text-anchor="middle">PC · Mac · Android</text>
+
+    <!-- Verdict -->
+    <text class="bad"  x="60"  y="590">✗</text>
+    <text class="note" x="100" y="590">Tied to one vendor or to a subset of devices</text>
+    <text class="bad"  x="60"  y="636">✗</text>
+    <text class="note" x="100" y="636">Of our 8 devices, VkSplat completes 4, Brush 6</text>
+  </g>
+
+  <!-- ===================== Cross3DGS (right) ===================== -->
+  <g id="cross3dgs">
+    <!-- Trainer: one optimizer -->
+    <rect class="trainer" x="900" y="88" width="660" height="64"/>
+    <text class="tb" x="1230" y="127" text-anchor="middle">One optimizer, one reference update</text>
+
+    <!-- Schedule: chosen per device in two steps -->
+    <rect class="sched" x="900"  y="172" width="300" height="64"/>
+    <text class="tb" x="1050" y="199" text-anchor="middle">1  Feasibility rules</text>
+    <text class="small" x="1050" y="223" text-anchor="middle">run-time limits · workload · driver failures</text>
+    <path class="arrow" d="M1205,204 L1252,204"/>
+    <rect class="sched" x="1260" y="172" width="300" height="64"/>
+    <text class="tb" x="1410" y="199" text-anchor="middle">2  Preference order</text>
+    <text class="small" x="1410" y="223" text-anchor="middle">one feasible schedule, no timing</text>
+
+    <!-- Backend API -->
+    <rect class="api" x="900" y="256" width="660" height="64"/>
+    <text class="big" x="1150" y="299" text-anchor="middle">Vulkan</text>
+    <text class="small" x="1400" y="294" text-anchor="middle">SPIR-V 1.3 · MoltenVK on Apple</text>
+
+    <!-- GPU vendors (measured) -->
+    <g id="vendors" text-anchor="middle">
+      <rect class="gpu" x="900"  y="340" width="100" height="84"/>
+      <text class="vendor nv" x="950" y="378">NVIDIA</text>
+      <text class="small" x="950" y="404">PRO6000</text>
+      <rect class="gpu" x="1012" y="340" width="100" height="84"/>
+      <text class="vendor amd" x="1062" y="378">AMD</text>
+      <text class="small" x="1062" y="404">RX9070XT</text>
+      <rect class="gpu" x="1124" y="340" width="100" height="84"/>
+      <text class="vendor intel" x="1174" y="378">Intel</text>
+      <text class="small" x="1174" y="400">Iris Xe</text>
+      <text class="small" x="1174" y="418">UHD730</text>
+      <rect class="gpu" x="1236" y="340" width="100" height="84"/>
+      <text class="vendor arm" x="1286" y="378">Arm</text>
+      <text class="small" x="1286" y="404">G1-Ultra</text>
+      <rect class="gpu" x="1348" y="340" width="100" height="84"/>
+      <text class="vendor qc" x="1398" y="378">Qualcomm</text>
+      <text class="small" x="1398" y="404">Adreno740</text>
+      <rect class="gpu" x="1460" y="340" width="100" height="84"/>
+      <text class="vendor apple" x="1510" y="378">Apple</text>
+      <text class="small" x="1510" y="400">M5Pro</text>
+      <text class="small" x="1510" y="418">A14</text>
+    </g>
+
+    <!-- OS -->
+    <rect class="os" x="900" y="444" width="660" height="64"/>
+    <text class="t" x="1230" y="483" text-anchor="middle">Windows · Ubuntu · macOS · Android · iOS</text>
+
+    <!-- Verdict -->
+    <text class="good" x="920" y="590">✓</text>
+    <text class="note" x="960" y="590">Completes standard-quality training on all 8 devices</text>
+    <text class="good" x="920" y="636">✓</text>
+    <text class="note" x="960" y="636">Nearly identical final quality across devices</text>
+  </g>
+
+  <line class="divider" x1="40" y1="548" x2="1560" y2="548"/>
+  <text class="small" x="800" y="694" text-anchor="middle">Standard quality: 30k updates, one million Gaussians. Devices are the eight GPU / host pairs measured in the paper.</text>
+</svg>

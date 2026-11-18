@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.ar" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.vulkan.version"
+        android:version="0x401000"
+        android:required="true" />
+
+    <application
+        android:label="${appLabel}"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:allowBackup="false"
+        android:largeHeap="true">
+        <meta-data android:name="com.google.ar.core" android:value="optional" />
+        <activity
+            android:name="org.unclearness.cross3dgs.capture.ArCaptureActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <service
+            android:name="org.unclearness.cross3dgs.capture.RunKeepAliveService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <activity
+            android:name="org.unclearness.cross3dgs.E2eActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|keyboardHidden|screenLayout">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

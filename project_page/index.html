@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!--
+  Cross3DGS project page.
+  Layout and styling follow the Nerfies project page template
+  (https://github.com/nerfies/nerfies.github.io, CC BY-SA 4.0), the template
+  most CV/CG project pages are built from. Keep the attribution in the footer.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description"
+        content="Cross3DGS: unified Vulkan-based 3D Gaussian Splatting training from workstations to mobile devices.">
+  <meta name="keywords" content="3D Gaussian Splatting, Vulkan, mobile, cross-platform, on-device training">
+  <!-- TODO: add og:image / twitter:card meta once the page URL is fixed. -->
+  <title>Cross3DGS</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Cross3DGS</h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            Unified Vulkan-Based 3D Gaussian Splatting Training<br>from Workstations to Mobile Devices
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Hiroyuki Sato,</span>
+            <span class="author-block">Yusuke Takimoto</span>
+          </div>
+          <div class="is-size-5 publication-venue">
+            <a href="https://eof-workshop.github.io/">WACV 2027 Workshop on Eyes of the Future (EOF)</a>
+          </div>
+
+          <div class="publication-links">
+            <!-- TODO: link the camera-ready PDF. -->
+            <span class="link-block">
+              <a href="#" class="external-link button is-normal is-rounded is-dark is-todo" title="TODO">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2611.22240" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="#video" class="button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-youtube"></i></span>
+                <span>Video</span>
+              </a>
+            </span>
+            <!-- TODO: confirm the public repository URL. -->
+            <span class="link-block">
+              <a href="https://github.com/unclearness/cross3dgs" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/teaser_mobile_app.jpg" class="teaser-image"
+           alt="Capture, sparse SfM, 3DGS optimization, and free-view rendering, all on a mobile device.">
+      <h2 class="subtitle has-text-centered">
+        An end-to-end 3DGS reconstruction application running entirely on a mobile device:
+        capture, sparse structure from motion, on-device 3DGS optimization, and interactive viewing.
+        Available for both Android and iOS.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Scenes captured with handheld and wearable cameras are still shipped to a CUDA workstation
+            for 3D Gaussian Splatting (3DGS) training. Training on the device that captured them, or on
+            its companion phone or laptop, requires more than translating kernels: GPUs and drivers differ
+            in parallel features, memory limits, and command submission, and these differences decide
+            whether a training schedule executes and returns the correct update.
+          </p>
+          <p>
+            We present <b>Cross3DGS</b>, a cross-vendor, cross-platform Vulkan trainer that keeps one
+            optimizer and chooses its execution schedule per device in two steps: rules on device limits,
+            workload size, and observed driver failures exclude the schedules known not to run correctly,
+            and a fixed preference order selects one of the remaining feasible schedules. The same core
+            completes standard-quality training (30k updates, one million Gaussians) on every
+            configuration we measured, spanning NVIDIA, Intel, Arm, Qualcomm, AMD, and Apple GPUs and
+            including Android devices and an iPhone, whereas the existing portable trainers VkSplat and
+            Brush do not run on some of the mobile GPUs.
+          </p>
+          <p>
+            Averaged over 11 scenes on a workstation, Cross3DGS has higher quality than VkSplat with no
+            significant difference in training time, and Brush reports about three times the training
+            time at comparable quality. The final quality of Cross3DGS is nearly identical across
+            devices. A mobile application turns a handheld capture into a viewable model entirely on
+            the device.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="title is-3 has-text-centered section-heading" id="video">Mobile Application: One Codebase, Android and iOS</h2>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <p class="caption section-lead">
+          SfM and 3DGS training are the same native code on both platforms; only the camera
+          capture (ARCore / ARKit) and a thin UI (Kotlin / Objective-C++) are platform-specific.
+        </p>
+        <div class="publication-video">
+          <video poster="./static/images/mobile_app_demo_poster.jpg" controls muted playsinline preload="metadata">
+            <source src="./static/videos/mobile_app_demo.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="caption">
+          The same capture-to-view application on Android (Xiaomi 17T Pro, left; Xiaomi Pad 6S Pro 12.4,
+          middle) and iOS (iPhone 12 Pro, right): capture, sparse SfM, 3DGS optimization, and viewing, all
+          on the device. Stages are time-lapsed per device (factor shown under each); the clock is real
+          time since capture start, and the viewer plays in real time. These are 60-frame runs with the
+          screen recorder on; the paper reports 100-frame sessions without it.
+        </p>
+        <div class="publication-video">
+          <video poster="./static/images/outdoor_app_demo_poster.jpg" controls muted playsinline preload="metadata">
+            <source src="./static/videos/outdoor_app_demo.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="caption">
+          Two outdoor scenes, a shrine (left) and a stone statue (right), processed on the Android phone
+          (Xiaomi 17T Pro) from captures saved on it: frame extraction, sparse SfM, 3DGS optimization,
+          and viewing, all on the device. Stages are time-lapsed as above; the clock is real time since
+          frame extraction started. These are 60-frame runs with the screen recorder on, so their times
+          differ from the numbers in the paper. In the stone-statue recording, pedestrians and vehicles
+          are blurred in post-processing.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <h2 class="title is-3">One Trainer Across Six GPU Vendors</h2>
+    <figure class="paper-figure">
+      <img src="./static/images/cross_vendor_stack.svg"
+           alt="Existing 3DGS trainers are tied to CUDA or fail on some devices; Cross3DGS runs one optimizer on Vulkan across NVIDIA, AMD, Intel, Arm, Qualcomm, and Apple GPUs.">
+      <figcaption>
+        CUDA trainers run only on NVIDIA. The portable trainers VkSplat (Vulkan) and Brush (WebGPU)
+        fail on some of our devices. VkSplat checks device limits and drops the gradient kernels that
+        exceed shared memory before timing the rest; Brush runs one gradient kernel with native or
+        CAS atomics. Cross3DGS extends such checks to all six schedule options, adds the workload and
+        observed driver failures, picks one feasible schedule with a fixed preference order, and runs
+        on Vulkan from workstations to phones.
+      </figcaption>
+    </figure>
+
+    <h2 class="title is-3">Method</h2>
+    <div class="content has-text-justified">
+      <p>
+        One optimizer, many devices. Instead of hand-tuning a separate port per GPU, Cross3DGS keeps a
+        catalog of execution schedules and picks one per device. Step 1 drops every schedule that fails a
+        feasibility rule on the device limits, the workload, and known driver failures. Step 2 picks one of
+        the remaining schedules with a fixed preference order. Every gradient method in the catalog is
+        checked offline against the reference update.
+      </p>
+    </div>
+    <figure class="paper-figure">
+      <img src="./static/images/two_step_selection.png"
+           alt="Two-step schedule selection: feasibility rules, then a fixed preference order.">
+      <figcaption>Choosing a schedule for a device.</figcaption>
+    </figure>
+
+    <h2 class="title is-3">Results</h2>
+    <h3 class="title is-4">Full training on all eight tested configurations, at the same quality</h3>
+    <figure class="paper-figure">
+      <img src="./static/images/time_quality_coverage.png"
+           alt="Execution coverage, training time, and PSNR on bicycle across devices and methods.">
+      <figcaption>
+        Standard-quality time, quality, and execution coverage on <i>bicycle</i>.
+        Left: which method runs on which GPU. Right: three-run median training time (log scale) against
+        mean-view PSNR; color marks the GPU and marker shape the method. The shaded band is the
+        eight-device Cross3DGS PSNR span.
+      </figcaption>
+    </figure>
+
+    <figure class="paper-figure">
+      <img src="./static/images/qualitative_bicycle.jpg"
+           alt="Renders and absolute error maps on bicycle for three devices and two baselines.">
+      <figcaption>
+        Standard-quality renders and error maps on <i>bicycle</i> for three devices whose deployed
+        gradient accumulation differs, and for VkSplat and Brush on the workstation GPU.
+      </figcaption>
+    </figure>
+
+    <h3 class="title is-4">On-device capture to view</h3>
+    <figure class="paper-figure narrow">
+      <img src="./static/images/capture_to_view_sessions.jpg"
+           alt="Held-out targets, on-device reconstructions, and error maps for mobile captures.">
+      <figcaption>
+        A plush bear reconstructed on an iPhone, an Android phone, and an Android tablet (first three
+        rows, each from its own capture), followed by two outdoor scenes on the Android phone at the
+        demonstration and standard-quality settings. Each row shows a held-out target, its
+        reconstruction, and a mean absolute RGB error map. The plush-bear frames are shown as recorded.
+      </figcaption>
+    </figure>
+    <!-- TODO: more app videos / interactive viewer of trained models. -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@InProceedings{Sato_2027_WACV_Cross3DGS,
+    author    = {Sato, Hiroyuki and Takimoto, Yusuke},
+    title     = {Cross3DGS: Unified Vulkan-Based 3D Gaussian Splatting Training from Workstations to Mobile Devices},
+    booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) Workshops},
+    year      = {2027}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            This website is licensed under a
+            <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons
+            Attribution-ShareAlike 4.0 International License</a>.
+            It borrows the source code of the
+            <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> project page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

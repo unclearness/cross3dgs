@@ -1,0 +1,39 @@
+{
+  "name": "cross3dgs-sfm",
+  "version-string": "0.1.0",
+  "description": "Dependencies of the CPU COLMAP sparse SfM shared by the Android and iOS capture-to-view apps. On iOS BLAS/LAPACK come from Accelerate instead of openblas/clapack.",
+  "features": {
+    "portable-blas": {
+      "description": "Safe generic ARMV8 comparison build for the SfM benchmark",
+      "dependencies": [{"name": "openblas", "features": ["portable-armv8"], "platform": "android"}]
+    }
+  },
+  "dependencies": [
+    "boost-algorithm",
+    "boost-graph",
+    "boost-heap",
+    "boost-program-options",
+    "boost-property-map",
+    "boost-property-tree",
+    "eigen3",
+    "glog",
+    "sqlite3",
+    "metis",
+    {
+      "name": "ceres",
+      "features": [
+        "eigensparse",
+        "schur"
+      ]
+    },
+    "openimageio",
+    {
+      "name": "openblas",
+      "platform": "android"
+    },
+    {
+      "name": "clapack",
+      "platform": "android"
+    }
+  ]
+}

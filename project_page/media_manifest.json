@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "capture_subject": "teddy bear",
+  "files": [
+    {
+      "path": "project_page/static/images/capture_to_view_sessions.jpg",
+      "bytes": 1199825,
+      "sha256": "c3fa426eaff4e16ffb4d2bcdb9bdd22bd087f1e6144fefbf94827fe6f276aa78"
+    },
+    {
+      "path": "project_page/static/images/cross_vendor_stack.svg",
+      "bytes": 9880,
+      "sha256": "94db8a9dd247262deee002e5a659bcdca3fbdb87b0b0cb10368892079d85d6c0"
+    },
+    {
+      "path": "project_page/static/images/mobile_app_demo_poster.jpg",
+      "bytes": 212180,
+      "sha256": "b30b73a7b0c651d717b47cfe32ef522de296083ba159c5933cf8ea6b47a4ae2d"
+    },
+    {
+      "path": "project_page/static/images/outdoor_app_demo_poster.jpg",
+      "bytes": 180410,
+      "sha256": "6e5df0d9fadda7cd2f86c502e3a03652145f54c3fb6856154ceb79ff3e92a801"
+    },
+    {
+      "path": "project_page/static/images/qualitative_bicycle.jpg",
+      "bytes": 943050,
+      "sha256": "3359fefba75d5970f816abf02543256e68e69d46a20c65bf10b671df3ee5d292"
+    },
+    {
+      "path": "project_page/static/images/teaser_mobile_app.jpg",
+      "bytes": 337194,
+      "sha256": "e6687f82b630afff42f436d0a338cad5d5a98a44d7c2fb3883f0e00934567723"
+    },
+    {
+      "path": "project_page/static/images/time_quality_coverage.png",
+      "bytes": 114178,
+      "sha256": "17994032203d2a86cdfc573d4ebe888fb12666e949ffc31b309e29b642ff98ec"
+    },
+    {
+      "path": "project_page/static/images/two_step_selection.png",
+      "bytes": 153464,
+      "sha256": "c17e916118fe5f1c0ad24bdad0b8aac4e347ba5017d72cad124c9dbcc3461775"
+    },
+    {
+      "path": "project_page/static/videos/mobile_app_demo.mp4",
+      "bytes": 13049411,
+      "sha256": "7e700a87cb89e885865eabe79416c49ec3362490cbc0d8c42445abb0fb41776a"
+    },
+    {
+      "path": "project_page/static/videos/outdoor_app_demo.mp4",
+      "bytes": 9655888,
+      "sha256": "2960cf02a113ac4ad1cd826a4dca4b048762e2ac03f7a2133d012fa4b2982c9c"
+    }
+  ]
+}

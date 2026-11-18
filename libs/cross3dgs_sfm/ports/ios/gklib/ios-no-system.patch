@@ -1,0 +1,32 @@
+--- a/src/fs.c
++++ b/src/fs.c
+@@ -207,10 +207,15 @@
+ **************************************************************************/
+ int gk_mkpath(char *pathname)
+ {
++#if defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
++  (void)pathname;
++  return -1;
++#else
+   char tmp[2048];
+
+   sprintf(tmp, "mkdir -p %s", pathname);
+   return system(tmp);
++#endif
+ }
+
+
+@@ -219,8 +224,13 @@
+ **************************************************************************/
+ int gk_rmpath(char *pathname)
+ {
++#if defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
++  (void)pathname;
++  return -1;
++#else
+   char tmp[2048];
+
+   sprintf(tmp, "rm -r %s", pathname);
+   return system(tmp);
++#endif
+ }
